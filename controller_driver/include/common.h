@@ -74,6 +74,5 @@ uint32_t uint32_map(uint32_t x, uint32_t in_min, uint32_t in_max, uint32_t out_m
 double double_map(double x, double in_min, double in_max, double out_min, double out_max);
 int8_t sign ( float var );
 
-
 #endif /* INCLUDE_COMMON_H_ */
 
