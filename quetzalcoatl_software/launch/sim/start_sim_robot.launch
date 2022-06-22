@@ -6,28 +6,23 @@
 
     <include file="$(find quetzalcoatl_description)/launch/quetzalcoatl.launch">
         <arg name="world" value="$(find quetzalcoatl_maps)/worlds/city.world" />
-        <!-- <arg name="x" default="-41" />
-        <arg name="y" default="35" /> -->
-        <!-- <arg name="z" value="1" />  -->
-        <arg name="gui" value="true" />
+        <arg name="gui" value="false" />
     </include>
 
-    <!-- <include file="$(find quetzalcoatl_software)/launch/drivers/ekf_odom.launch">
-        <arg name="folder_name" value="ekf_sim" />
-    </include> -->
+    <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization" clear_params="true" output="screen">
+        <rosparam command="load" file="$(find quetzalcoatl_software)/config/ekf/ekf_sim.yaml" />
+        <remap from="odometry/filtered" to="quetzalcoatl/odometry/filtered" />
+    </node>
     <!-- <include file="$(find quetzalcoatl_software)/launch/drivers/ekf_map.launch"></include> -->
 
-    <!-- <include file="$(find quetzalcoatl_software)/launch/view/rviz_start.launch">
-        <arg name="rvizconfig" value="$(find quetzalcoatl_software)/config/rviz/common_sim.rviz" />
-    </include> -->
-
-    <!-- <include file="$(find quetzalcoatl_software)/launch/drivers/move_base.launch">
+    <include file="$(find quetzalcoatl_software)/launch/drivers/move_base.launch">
         <arg name="folder_name" value="move_base_sim" />
-        <arg name="cmd_topic" value="/quetzalcoatl/cmd_vel" />
-    </include> -->
+        <arg name="cmd_topic" value="/cmd_vel" />
+    </include>
 
     <!-- Remove after global ekf connected -->
-    <!-- <node pkg="tf" type="static_transform_publisher" name="odom_2_map" args="0 0 0 0 0 0 /odom /map 1000" /> -->
+    <node pkg="tf" type="static_transform_publisher" name="map_2_odom" args="0.1 0 0 0 0 0 /map /odom 1000" />
 
-    <node if="$(arg rviz)" name="rviz" pkg="rviz" type="rviz" args="-d $(find quetzalcoatl_description)/rviz/overview.rviz" />
+    <node if="$(arg rviz)" name="rviz" pkg="rviz" type="rviz" args="-d $(find quetzalcoatl_software)/config/rviz/common_sim.rviz" />
+    
 </launch>
