@@ -8,7 +8,6 @@ catkin build \
     quetzalcoatl_maps \
     quetzalcoatl_description \
     maddrive_urdf_tools \
-    ackermann_controller_plugin \
     --cmake-args -DOpenCV_DIR="/usr/local/lib/cmake/opencv4" 
 
     # rtabmap \
@@ -16,3 +15,4 @@ catkin build \
     # stereo_image_proc \
     # spatio_temporal_voxel_layer \
     # camera_calibration \
+    # ackermann_controller_plugin \
