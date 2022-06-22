@@ -5,8 +5,8 @@
     <arg name="gui" default="false" />
 
     <include file="$(find quetzalcoatl_description)/launch/quetzalcoatl.launch">
-        <arg name="world" value="$(find quetzalcoatl_maps)/worlds/city.world" />
-        <arg name="gui" value="false" />
+        <arg name="world" value="$(find quetzalcoatl_maps)/worlds/gas.world" />
+        <arg name="gui" value="true" />
     </include>
 
     <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization" clear_params="true" output="screen">

@@ -18,3 +18,8 @@
 
 ## Сборка
 
+## Notes
+Экспорт для окружения для работы симулятора:
+~~~bash
+export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:$(rospack find quetzalcoatl_maps)/models
+~~~
