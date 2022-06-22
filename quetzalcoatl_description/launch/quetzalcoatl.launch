@@ -12,8 +12,8 @@
   <arg name="control" default="false" />
 
   <param name="robot_description" command="$(find xacro)/xacro '$(find quetzalcoatl_description)/urdf/robocross_22.urdf.xacro' robot_name:=gazel" />
-  <arg name="x" default="-20" />
-  <arg name="y" default="20" />
+  <arg name="x" default="0" />
+  <arg name="y" default="0" />
   <arg name="z" default="0.1" />
 
   <node name="robot_spawn" pkg="gazebo_ros" type="spawn_model" output="screen" args="-urdf -param robot_description -model robot -x $(arg x) -y $(arg y) -z $(arg z)" />
