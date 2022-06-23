@@ -1,6 +1,7 @@
 #include <ros_proto.h>
 #include <common.h>
 #include <ros.h>
+#include <ros/node_handle.h>
 
 /**************/
 /* ROS things */
@@ -12,6 +13,18 @@
 
 
 #define THREAD_SLEEP_TIME 10
+
+/* Useful for watchdog */
+
+// static virtual_timer_t  watchdog_vt;
+// static void watchdog_cb(void *arg)
+// {
+//     (void)arg;
+//     steerExtTask = speedExtTask = 0;
+// }
+// chVTSet( &watchdog_vt, MS2ST( CONTROL_SET_TIMEOUT_MS ), watchdog_cb, NULL );
+
+/* =================== */
 
 ros::NodeHandle ros_node;
 
@@ -29,9 +42,21 @@ ros::Publisher topic_out_state("state", &outMsg);
 float st2s = 1.0 / CH_CFG_ST_FREQUENCY;
 bool initialized = false;
 
-static float get_seconds()
+// static float get_seconds()
+// {
+//     return chVTGetSystemTimeX() * st2s;
+// }
+
+static void setTime(ros::Time &stamp)
 {
-    return chVTGetSystemTimeX() * st2s;
+    RosSocketHardware* hardware = ros_node.getHardware();
+
+    float curr_time_ms = hardware->time();
+    float seconds;
+    float fract_part = modf(curr_time_ms/1000, &seconds);
+
+    stamp.sec = seconds;
+    stamp.nsec = fract_part * 1e9;
 }
 
 void rosSendState(gazel_ros_send_state_t state)
@@ -43,12 +68,7 @@ void rosSendState(gazel_ros_send_state_t state)
     outMsg.linear_speed = state.linear_speed;
     outMsg.angle_steering = state.steering_angle;
 
-    float curr_time = get_seconds();
-    float seconds;
-    float fract_part = modf(curr_time, &seconds);
-
-    outMsg.stamp.sec = seconds;
-    outMsg.stamp.nsec = fract_part * 1e9;
+    setTime(outMsg.stamp);
 
     topic_out_state.publish(&outMsg);
 }
@@ -80,12 +100,14 @@ static THD_FUNCTION(Spinner, arg)
 
     while (true)
     {
+        systime_t time = chVTGetSystemTimeX();
+
         int spin_status = ros_node.spinOnce();
         if (0 != spin_status ) {
             comm_dbgprintf_info("Spin failed: %d", spin_status);
         }
-        // TODO - write to make it more stable in period
-        chThdSleepMilliseconds(THREAD_SLEEP_TIME);
+
+        chThdSleepUntilWindowed( time, time + MS2ST( 20 ) );
     }
 }
 

@@ -159,16 +159,16 @@ void commandGearSecond(void)
 
 void testMainNew(void)
 {
-    // feedbackInit();
-    // pedalsInit();
-    // mtControlInit();
-    // emergencyStopInit();
-    // engIgnitionInit();
-    // lldSteerSMInit();
-    // // soundSignalInit();
-    // speedInit();
+    feedbackInit();
+    pedalsInit();
+    mtControlInit();
+    emergencyStopInit();
+    engIgnitionInit();
+    lldSteerSMInit();
+    // soundSignalInit();
+    speedInit();
 
-    // chThdCreateStatic(mt_shift_wa, sizeof(mt_shift_wa), NORMALPRIO, mt_shift, NULL);
+    chThdCreateStatic(mt_shift_wa, sizeof(mt_shift_wa), NORMALPRIO, mt_shift, NULL);
 
     communicationEventFun_t structForFunc = getDefaultCfg();
 
@@ -181,30 +181,16 @@ void testMainNew(void)
     structForFunc.on_gear1 = commandGearFirst;
     structForFunc.on_gear6 = commandGearSecond;
 
-    // comm_init(&structForFunc, CONNECTION_FAIL_OK_DELAY, true);
-    /* For USB debug */
-    comm_init(&structForFunc, CONNECTION_FAIL_OK_DELAY, false);
-    // comm_start_protocol();
-
-    rosInit(NORMALPRIO);
+    comm_init(&structForFunc, CONNECTION_FAIL_OK_DELAY, true);
 
     while (1)
     {
-        // palToggleLine(LINE_LED2);
-
         if (mt_shifting != -1)
         {
             comm_dbgprintf("Gear shifting = %d\t", mt_shifting);
         }
 
         comm_dbgprintf("speed: %d\t eng_speed: %d\t gear: %d\t gear_flag: %d\t clutch pos: %d\t brake pos: %d\t  \n\r", (uint16_t)gazelGetSpeed(), (uint16_t)gazelGetEngineSpeed(), mtControlGetCurrentGearNum(), pedalsClutchGetPosition(), pedalsBrakeGetPosition());
-
-        gazel_ros_send_state_t state = {
-            .linear_speed = 12,
-            .steering_angle = 0.1
-        };
-
-        rosSendState(state);
 
         chThdSleepMilliseconds(1000);
     }
