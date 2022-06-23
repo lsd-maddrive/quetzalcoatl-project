@@ -46,7 +46,7 @@
 #define     PROGRAM_ROUTINE_TEST_ROS_COMM                   19
 
 
-#define     MAIN_PROGRAM_ROUTINE  PROGRAM_ROUTINE_TEST_ROS_COMM
+#define     MAIN_PROGRAM_ROUTINE  PROGRAM_ROUTINE_TEST_MAIN_NEW
 
 /**************/
 /*** Macros ***/

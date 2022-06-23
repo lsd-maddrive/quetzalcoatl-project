@@ -83,17 +83,6 @@ static THD_FUNCTION(Spinner, arg)
     (void)arg;
     chRegSetThreadName("ROS Spinner");
 
-    /* ROS setup */
-    ros_node.initNode();
-    // ros_node.setSpinTimeout(20);
-
-    /* ROS publishers */
-    ros_node.advertise(topic_out_state);
-
-    /* ROS subscribers */
-    ros_node.subscribe(topic_in_state);
-    /* ROS service client */
-
     initialized = true;
 
     comm_dbgprintf_info("Start spinning");
@@ -113,6 +102,18 @@ static THD_FUNCTION(Spinner, arg)
 
 void rosInit(tprio_t prio)
 {
+
+    /* ROS setup */
+    ros_node.initNode();
+    ros_node.setSpinTimeout(20);
+
+    /* ROS publishers */
+    ros_node.advertise(topic_out_state);
+
+    /* ROS subscribers */
+    ros_node.subscribe(topic_in_state);
+    /* ROS service client */
+
     /* Main ROS thread */
     chThdCreateStatic(waSpinner, sizeof(waSpinner), prio, Spinner, NULL);
 }

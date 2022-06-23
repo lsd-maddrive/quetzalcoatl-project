@@ -42,7 +42,7 @@ void fallingEdgeClutchMCallback(PWMDriver *pwmd){
 
 
 /* Brake motor structure declaration*/
-MotorDriver BreakM = {
+static MotorDriver BreakM = {
     .pwmd            =   &PWMD4,
     .dir_line        =   PAL_LINE(GPIOD, 11),
     .rising_edge_cb  =   risingEdgeBreakMCallback,
@@ -68,25 +68,27 @@ static bool if_pedals_module_initialized = 0;
  * @brief      Perephery setup and lld initialization
  */
 void pedalsInit ( void ){
-     if ( if_pedals_module_initialized )
-     {
-         return;
-     }
+    if ( if_pedals_module_initialized )
+    {
+        return;
+    }
 
-     /* Clutch init*/
-     palSetLineMode( PAL_LINE( GPIOC, 6),  PAL_MODE_ALTERNATE(2) );
-     palSetLineMode( ClutchM.dir_line, PAL_MODE_OUTPUT_PUSHPULL);
-     MotorlldControlInit( &ClutchM );
+    /* Clutch init*/
+    palSetLineMode( PAL_LINE( GPIOC, 6),  PAL_MODE_ALTERNATE(2) );
+    palSetLineMode( ClutchM.dir_line, PAL_MODE_OUTPUT_PUSHPULL);
+    MotorlldControlInit( &ClutchM );
 
-     /* Brake init*/
-     palSetLineMode( PAL_LINE( GPIOD, 12),  PAL_MODE_ALTERNATE(2) );
-     palSetLineMode( BreakM.dir_line, PAL_MODE_OUTPUT_PUSHPULL);
-     MotorlldControlInit( &BreakM );
+    /* Brake init*/
+    palSetLineMode( PAL_LINE( GPIOD, 12),  PAL_MODE_ALTERNATE(2) );
+    palSetLineMode( BreakM.dir_line, PAL_MODE_OUTPUT_PUSHPULL);
+    MotorlldControlInit( &BreakM );
 
-     /* Accelerator pedal init*/
-     extDacInit();
+    /* Accelerator pedal init*/
+    extDacInit();
     // palSetLine(LINE_LED1);
-     if_pedals_module_initialized = 1;
+    if_pedals_module_initialized = 1;
+
+    comm_dbgprintf_info("pedalsInit() done: %d", BreakM.position);
 }
 
 

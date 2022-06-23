@@ -2,7 +2,11 @@
   
 ## Подготовка
 
-Развернуть lwip в папке chibios176/ext
+- Развернуть lwip в папке chibios176/ext
+
+## Notes
+
+- LWIP и SPI (нога A7) ломают друг-друга =(
 
 ## References
 

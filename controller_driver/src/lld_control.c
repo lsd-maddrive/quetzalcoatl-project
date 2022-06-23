@@ -197,6 +197,7 @@ void MotorlldControlInit ( MotorDriver *mtd ){
             mtd -> position = 0;
             mtd -> tracked_position = 0;
 
+
             /* PWM Unit initialization */
             PWMUnitInit( mtd);
             /* Set initialization flag */
