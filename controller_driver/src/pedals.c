@@ -42,7 +42,7 @@ void fallingEdgeClutchMCallback(PWMDriver *pwmd){
 
 
 /* Brake motor structure declaration*/
-static MotorDriver BreakM = {
+MotorDriver BreakM = {
     .pwmd            =   &PWMD4,
     .dir_line        =   PAL_LINE(GPIOD, 11),
     .rising_edge_cb  =   risingEdgeBreakMCallback,

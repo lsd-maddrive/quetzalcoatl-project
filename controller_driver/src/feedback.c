@@ -38,7 +38,7 @@ void px4_filter(){
 /*
  * Receiver thread.
  */
-static THD_WORKING_AREA(can_rx_wa, 512);
+static THD_WORKING_AREA(can_rx_wa, 256);
 static THD_FUNCTION(can_rx, arg) {
     arg = arg;
 
