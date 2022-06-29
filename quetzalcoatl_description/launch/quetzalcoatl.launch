@@ -14,7 +14,7 @@
   <param name="robot_description" command="$(find xacro)/xacro '$(find quetzalcoatl_description)/urdf/robocross_22.urdf.xacro' robot_name:=gazel" />
   <arg name="x" default="0" />
   <arg name="y" default="0" />
-  <arg name="z" default="0.1" />
+  <arg name="z" default="0.2" />
 
   <node name="robot_spawn" pkg="gazebo_ros" type="spawn_model" output="screen" args="-urdf -param robot_description -model robot -x $(arg x) -y $(arg y) -z $(arg z)" />
 
@@ -25,7 +25,7 @@
     <arg name="gui" value="$(arg gui)" />
     <arg name="use_sim_time" value="$(arg use_sim_time)" />
     <arg name="paused" value="$(arg pause)" />
-    <arg name="verbose" default="$(arg verbose)"/>
+    <arg name="verbose" default="$(arg verbose)" />
   </include>
 
   <!-- Publish static TFs (fixed joints) -->
@@ -34,7 +34,11 @@
   <!-- Publish dynamic TFs (non-fixed joints) -->
   <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
 
-  <!-- Enable keyboard control panel -->
+  <!-- IMU filter for rs-->
+  <include file="$(find quetzalcoatl_software)/launch/drivers/imu_filter.launch">
+    <arg name="in_topic" value="rs_camera_left/imu" />
+    <arg name="out_topic" value="rs_camera_left/imu/filtered" />
+  </include>
 
- 
+
 </launch>

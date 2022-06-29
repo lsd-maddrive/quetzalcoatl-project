@@ -7,8 +7,8 @@ catkin build \
     quetzalcoatl_vision \
     quetzalcoatl_maps \
     quetzalcoatl_description \
-    maddrive_urdf_tools \
-    --cmake-args -DOpenCV_DIR="/usr/local/lib/cmake/opencv4" 
+    # maddrive_urdf_tools \
+    # --cmake-args -DOpenCV_DIR="/usr/local/lib/cmake/opencv4" 
 
     # rtabmap \
     # rtabmap_ros \
