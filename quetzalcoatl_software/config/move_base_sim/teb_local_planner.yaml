@@ -1,5 +1,5 @@
 TebLocalPlannerROS:
-    odom_topic: /tigra/odometry/filtered
+    odom_topic: /quetzalcoatl/odometry/filtered/local
     map_frame: map
 
     # Trajectory
@@ -76,8 +76,8 @@ TebLocalPlannerROS:
     weight_acc_lim_x: 1
     weight_acc_lim_theta: 1
     weight_kinematics_nh: 1000
-    weight_kinematics_forward_drive: 20
-    weight_kinematics_turning_radius: 10 #1
+    weight_kinematics_forward_drive: 900
+    weight_kinematics_turning_radius: 1 #1
     weight_optimaltime: 3
     weight_obstacle: 100
     weight_shortest_path: 0

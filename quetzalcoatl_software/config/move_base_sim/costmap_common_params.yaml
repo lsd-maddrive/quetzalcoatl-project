@@ -5,28 +5,44 @@ footprint: [[ [4.62, 1.256], [-1.587, 1.256], [-1.587, -1.256], [4.62, -1.256] ]
 obstacle_range: 6.0
 raytrace_range: 7.5
 
-#static_layer:
-#  unknown_cost_value: -1
-#  lethal_cost_threshold: 100
-#  first_map_only: false
-#  subscribe_to_updates: false
-#  track_unknown_space: false
-#  use_maximum: true
-#  trinary_costmap: true
-#  map_topic: /rtabmap/grid_map
+static_layer:
+ unknown_cost_value: -1
+ lethal_cost_threshold: 100
+ first_map_only: false
+ subscribe_to_updates: false
+ track_unknown_space: false
+ use_maximum: true
+ trinary_costmap: true
+ map_topic: /rtabmap/grid_map
 
 inflation_layer:
   inflation_radius: 1.5 # the bigger the better, defines where the gradient is
   cost_scaling_factor: 10.5 # 0.5 the bigger the steeper the gradient is
 
-depth_obstacle_layer:
+left_depth_obstacle_layer:
   # https://github.com/SteveMacenski/spatio_temporal_voxel_layer/issues/129
-  observation_sources: point_cloud_sensor
+  observation_sources: rs_left_point_cloud_sensor
   track_unknown_space: true
 
-  point_cloud_sensor:
+  rs_left_point_cloud_sensor:
     data_type: PointCloud2
     topic: /rs_camera_left/depth/color/points
+    marking: true
+    clearing: true
+    expected_update_rate: 0
+    min_obstacle_height: 0.3    # default 0, meters
+    max_obstacle_height: 3.0     # default 3, meters
+
+    observation_persistence: 0.0
+
+right_depth_obstacle_layer:
+  # https://github.com/SteveMacenski/spatio_temporal_voxel_layer/issues/129
+  observation_sources: rs_right_point_cloud_sensor
+  track_unknown_space: true
+
+  rs_left_point_cloud_sensor:
+    data_type: PointCloud2
+    topic: /rs_camera_right/depth/color/points
     marking: true
     clearing: true
     expected_update_rate: 0
@@ -80,3 +96,17 @@ rs_st_obstacle_layer:
     decay_acceleration: 1.       #default 0, 1/s^2. If laser scanner MUST be 0
     model_type: 0                #default 0 (depth camera). Use 1 for 3D Lidar
 
+elp_obstacle_layer:
+  observation_sources: elp_point_cloud_sensor
+  track_unknown_space: true
+
+  elp_point_cloud_sensor:
+    data_type: PointCloud2
+    topic: /elp_stereo/depth/color/points
+    marking: true
+    clearing: true
+    expected_update_rate: 0
+    min_obstacle_height: 0.3    # default 0, meters
+    max_obstacle_height: 3.0     # default 3, meters
+
+    observation_persistence: 0.0  

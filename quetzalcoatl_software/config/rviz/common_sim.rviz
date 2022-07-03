@@ -4,7 +4,10 @@ Panels:
     Name: Displays
     Property Tree Widget:
       Expanded:
+        - /Global Options1
         - /RobotModel1/Links1
+        - /rtabmap1
+        - /elp_point_cloud1
       Splitter Ratio: 0.5
     Tree Height: 262
   - Class: rviz/Selection
@@ -25,7 +28,7 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: PointCloud2
+    SyncSource: rs_camera_right_point_cloud
 Preferences:
   PromptSaveOnExit: true
 Toolbars:
@@ -254,17 +257,19 @@ Visualization Manager:
       Value: true
       Visibility:
         Grid: true
-        PointCloud2: true
         Polygon: true
         Right_cam: true
         RobotModel: true
         TF: true
         Value: true
         back_cam: true
+        elp_point_cloud: true
         global plan: true
         global_map: true
         local plan: true
         local_map: true
+        rs_camera_left_point_cloud: true
+        rs_camera_right_point_cloud: true
         rtabmap: true
       Zoom Factor: 1
     - Class: rviz/Camera
@@ -280,16 +285,18 @@ Visualization Manager:
       Visibility:
         Grid: true
         Left_cam: true
-        PointCloud2: true
         Polygon: true
         RobotModel: true
         TF: true
         Value: true
         back_cam: true
+        elp_point_cloud: true
         global plan: true
         global_map: true
         local plan: true
         local_map: true
+        rs_camera_left_point_cloud: true
+        rs_camera_right_point_cloud: true
         rtabmap: true
       Zoom Factor: 1
     - Class: rviz/Camera
@@ -305,17 +312,18 @@ Visualization Manager:
       Visibility:
         Grid: true
         Left_cam: true
-        PointCloud2: true
         Polygon: true
         Right_cam: true
         RobotModel: true
         TF: true
         Value: true
-        back_cam: true
+        elp_point_cloud: true
         global plan: true
         global_map: true
         local plan: true
         local_map: true
+        rs_camera_left_point_cloud: true
+        rs_camera_right_point_cloud: true
         rtabmap: true
       Zoom Factor: 1
     - Alpha: 1
@@ -334,7 +342,7 @@ Visualization Manager:
       Invert Rainbow: false
       Max Color: 255; 255; 255
       Min Color: 0; 0; 0
-      Name: PointCloud2
+      Name: rs_camera_right_point_cloud
       Position Transformer: XYZ
       Queue Size: 10
       Selectable: true
@@ -362,7 +370,7 @@ Visualization Manager:
       Invert Rainbow: false
       Max Color: 255; 255; 255
       Min Color: 0; 0; 0
-      Name: PointCloud2
+      Name: rs_camera_left_point_cloud
       Position Transformer: XYZ
       Queue Size: 10
       Selectable: true
@@ -378,22 +386,22 @@ Visualization Manager:
       Class: rviz/Map
       Color Scheme: map
       Draw Behind: false
-      Enabled: false
+      Enabled: true
       Name: global_map
       Topic: /move_base/global_costmap/costmap
       Unreliable: false
       Use Timestamp: false
-      Value: false
+      Value: true
     - Alpha: 0.699999988079071
       Class: rviz/Map
       Color Scheme: map
       Draw Behind: false
-      Enabled: false
+      Enabled: true
       Name: local_map
       Topic: /move_base/local_costmap/costmap
       Unreliable: false
       Use Timestamp: false
-      Value: false
+      Value: true
     - Alpha: 0.699999988079071
       Class: rviz/Map
       Color Scheme: map
@@ -461,11 +469,39 @@ Visualization Manager:
       Topic: /move_base/local_costmap/footprint
       Unreliable: false
       Value: true
+    - Alpha: 1
+      Autocompute Intensity Bounds: true
+      Autocompute Value Bounds:
+        Max Value: 10
+        Min Value: -10
+        Value: true
+      Axis: Z
+      Channel Name: intensity
+      Class: rviz/PointCloud2
+      Color: 255; 255; 255
+      Color Transformer: RGB8
+      Decay Time: 0
+      Enabled: true
+      Invert Rainbow: false
+      Max Color: 255; 255; 255
+      Min Color: 0; 0; 0
+      Name: elp_point_cloud
+      Position Transformer: XYZ
+      Queue Size: 10
+      Selectable: true
+      Size (Pixels): 3
+      Size (m): 0.009999999776482582
+      Style: Flat Squares
+      Topic: /elp_stereo/depth/color/points
+      Unreliable: false
+      Use Fixed Frame: true
+      Use rainbow: true
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
     Default Light: true
-    Fixed Frame: odom
+    Fixed Frame: map
     Frame Rate: 30
   Name: root
   Tools:
@@ -489,7 +525,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 50.30605697631836
+      Distance: 69.77059173583984
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -497,9 +533,9 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: -5.59012508392334
-        Y: 0.9875785112380981
-        Z: 8.476095199584961
+        X: 11.585139274597168
+        Y: -1.2582372426986694
+        Z: 14.816755294799805
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
