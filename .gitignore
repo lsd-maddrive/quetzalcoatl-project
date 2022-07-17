@@ -7,6 +7,8 @@
 **/.DS_Store
 **/__pycache__
 *.pyc
+/third_party/
+/quetzalcoatl_maps/3d_maps
+/quetzalcoatl_maps/models
 
-
-
+quetzalcoatl_maps/worlds/sonoma.world

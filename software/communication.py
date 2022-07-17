@@ -58,6 +58,7 @@ class CommunicationOnSerial(object):
 
         pkg = bytes([ord(self.start_byte_cmd), 25, 45, 65])
         self.__push_msg(pkg)
+        print('------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------')
 
         # self.work_resolution = False
 
@@ -68,7 +69,30 @@ class CommunicationOnSerial(object):
         self.__push_msg(pkg)
 
         # self.work_resolution = False
+    def on_steer(self):
+        """Остановка."""
 
+        pkg = bytes([ord(self.start_byte_cmd), 91, 8, 185])
+        self.__push_msg(pkg)
+        print('000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000')
+
+        # self.work_resolution = False
+    def on_green(self):
+        """Остановка."""
+
+        pkg = bytes([ord(self.start_byte_cmd), 47, 48, 49])
+        self.__push_msg(pkg)
+        # print('000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000')
+
+        # self.work_resolution = False
+    def on_r3(self):
+        """Остановка."""
+
+        pkg = bytes([ord(self.start_byte_cmd), 44, 45, 46])
+        self.__push_msg(pkg)
+        # print('000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000')
+
+        # self.work_resolution = False
     def set_control(self, speed_gaz, steer_gaz):
         """Передача значения скорости и угла поворота."""
 
@@ -202,8 +226,8 @@ if __name__ == "__main__":
             # speed, angle = input("Put speed, angle ").split()
             # Connection.set_control(speed, angle)
 
-            spst_pair = (np.random.randint(-100, 100),
-                         np.random.randint(-100, 100))
+            spst_pair = (42,
+                         69)
             print('New speed/steer pair: {}'.format(spst_pair))
 
             Connection.set_control(spst_pair[0], spst_pair[1])
@@ -216,6 +240,7 @@ if __name__ == "__main__":
         # Connection.set_control(int(speed), int(angle))
 
         inp = Connection.get_state_msg()
+        # print('inp = {}'.format(inp))
         if inp:
             print('I get: {} ({})'.format(inp.msg, inp.lvl))
 

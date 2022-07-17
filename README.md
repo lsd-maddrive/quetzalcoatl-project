@@ -1,7 +1,13 @@
 # quetzalcoatl_project
 
-## Some notes
+## Подготовка
 
-Для работы над данным проектом были добавлены PWM драйверы.
+Для работы в среде ROS требуется установить в workspace [репозиторий с общими тулами для ROS](https://github.com/lsd-maddrive/maddrive_ros_shared).
 
-Для установки патча скопируйте папку (не удаляйте предыдущую) `os` из папки `chibios_patch` к себе в папку `chibios*`.
+## [Доки по Газели](https://disk.yandex.ru/d/_3zzZoxEZ3Ugxg)
+
+## Notes
+Экспорт для окружения для работы симулятора:
+~~~bash
+export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:$(rospack find quetzalcoatl_maps)/models
+~~~

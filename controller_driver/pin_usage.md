@@ -1,7 +1,7 @@
 # Controller periphery usage
  
 ## NOTE!!!
-1) PE6 do not connected to board
+1) PE6 do not connected to board, PH1 ??
 2) PC11, PC10 do not working when try to pull down    
 
 
@@ -28,12 +28,18 @@ PWM3   | PC6  | Output         |
 PAL    | PB8  | Output         | Direction
 
 
-
 ## Brake pedal actuator control unit 
 Driver | Pins | Input / Output  | Description
 -------|------|-----------------|------------
 PWM4   | PD12 | Output          |   
 PAL    | PD11 | Output          | Direction
+
+
+## Steer (Step Motor) actuator control unit 
+Driver | Pins | Input / Output | Description
+-------|------|----------------|----------
+PWM12  | PB14 | Output         | 
+PAL    | PF2  | Output         | Direction
 
 
 ## Transmission control unit 
@@ -84,5 +90,12 @@ Driver | Pins | Input / Output | Description
 -------|------|----------------|----------
 PAL    | PF12 |   Output       | Ignition
 PAL    | PF13 |   Output       | Starter
+
+
+## Avto Signal (bi-bi)
+Driver | Pins | Input / Output | Description
+-------|------|----------------|----------
+PAL    | PB2  |   Output       | 
+
 
 

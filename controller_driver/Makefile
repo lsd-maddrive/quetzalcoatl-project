@@ -5,7 +5,7 @@
 
 # Compiler options here.
 ifeq ($(USE_OPT),)
-  USE_OPT = -O0 -ggdb -fomit-frame-pointer -falign-functions=16 -specs=nano.specs -specs=nosys.specs
+  USE_OPT = -O0 -ggdb -fomit-frame-pointer -falign-functions=16 -specs=nosys.specs
 endif
 
 # C specific options here (added to USE_OPT).
@@ -25,7 +25,7 @@ endif
 
 # Linker extra options here.
 ifeq ($(USE_LDOPT),)
-  USE_LDOPT = 
+  USE_LDOPT = -lstdc++
 endif
 
 # Enable this if you want link time optimizations (LTO)
@@ -60,7 +60,7 @@ endif
 # Stack size to be allocated to the Cortex-M process stack. This stack is
 # the stack used by the main() thread.
 ifeq ($(USE_PROCESS_STACKSIZE),)
-  USE_PROCESS_STACKSIZE = 0x8000
+  USE_PROCESS_STACKSIZE = 0x4000
 endif
 
 # Stack size to the allocated to the Cortex-M main/exceptions stack. This
@@ -71,7 +71,7 @@ endif
 
 # Enables the use of FPU (no, softfp, hard).
 ifeq ($(USE_FPU),)
-  USE_FPU = no
+  USE_FPU = hard
 endif
 
 # FPU-related options.
@@ -90,9 +90,11 @@ endif
 # Define project name here
 PROJECT = ch
 
-# TODO <<< Set this correct!
+ifndef CHIBIOS_ROOT
+  $(error CHIBIOS_ROOT is not set)
+endif
+
 # Imported source files and paths
-# CHIBIOS = ../../chibios176
 CHIBIOS = $(CHIBIOS_ROOT)
 # Startup files.
 include $(CHIBIOS)/os/common/startup/ARMCMx/compilers/GCC/mk/startup_stm32f7xx.mk
@@ -107,6 +109,8 @@ include $(CHIBIOS)/os/common/ports/ARMCMx/compilers/GCC/mk/port_v7m.mk
 # Other files (optional).
 #include $(CHIBIOS)/test/rt/test.mk
 include $(CHIBIOS)/os/hal/lib/streams/streams.mk
+# NOTE - used for LWIP bindings
+include $(CHIBIOS)/os/various/lwip_bindings/lwip.mk
 
 # Define linker script file here
 LDSCRIPT= $(STARTUPLD)/STM32F76xxI.ld
@@ -124,6 +128,8 @@ CSRC = $(STARTUPSRC) \
        $(BOARDSRC) \
        $(TESTSRC) \
        $(STREAMSSRC) \
+       $(LWSRC) \
+       $(CHIBIOS)/os/various/evtimer.c \
        $(PROJECT_CSRC)
 
 # C++ sources that can be compiled in ARM or THUMB mode depending on the global
@@ -157,7 +163,8 @@ ASMXSRC = $(STARTUPASM) $(PORTASM) $(OSALASM)
 INCDIR = $(CHIBIOS)/os/license \
          $(STARTUPINC) $(KERNINC) $(PORTINC) $(OSALINC) \
          $(HALINC) $(PLATFORMINC) $(BOARDINC) $(TESTINC) $(STREAMSINC) \
-         $(CHIBIOS)/os/various $(PROJECT_INCDIR)
+         $(LWINC) $(CHIBIOS)/os/various \
+         $(PROJECT_INCDIR)
 
 #
 # Project, sources and paths
@@ -177,7 +184,7 @@ CPPC = $(TRGT)g++
 # NOTE: You can use C++ even without C++ support if you are careful. C++
 #       runtime support makes code size explode.
 LD   = $(TRGT)gcc
-#LD   = $(TRGT)g++
+# LD   = $(TRGT)g++
 CP   = $(TRGT)objcopy
 AS   = $(TRGT)gcc -x assembler-with-cpp
 AR   = $(TRGT)ar

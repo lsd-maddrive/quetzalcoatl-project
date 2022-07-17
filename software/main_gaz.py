@@ -31,9 +31,11 @@ args = parser.parse_args()
 # MAIN for gazel computer
 
 BROCKER_IP = '127.0.0.1'
-STM_COMMUNICATION_DEVICE='/dev/serial/by-id/usb-STMicroelectronics_ChibiOS_RT_Virtual_COM_Port_404-if00'
+# STM_COMMUNICATION_DEVICE='/dev/serial/by-id/usb-STMicroelectronics_ChibiOS_RT_Virtual_COM_Port_404-if00'
 STM_COMMUNICATION_DEVICE='/dev/ttyACM1'
-
+# STM_COMMUNICATION_DEVICE='/dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_0671FF504955857567171741-if02'
+global SEND_DATA_ENABLE 
+SEND_DATA_ENABLE = 42
 rootLogger = setup_logger()
 if args.debug:
 	gzlog.enable_debug()
@@ -55,17 +57,20 @@ print('START SUB')
 def set_handler(load):
     print("get set from teleop")
     if comun:
+        # state_pub.send("SET VALUES sssssssssssssssssssssssssssssssssssssvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv")
         comun.set_control(load['speed'], load['steer'],)
     rootLogger.debug('COMM_SET: speed = {}, steer = {}'.format(load['speed'], load['steer']))
 def start_handler():
     print("get start from teleop")
     if comun:
+        # state_pub.send("START tttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt")
         comun.on_start()
     rootLogger.debug("COMM_START")
 def stop_handler():
     print("get stop from teleop")
     if comun:
         comun.on_stop()
+        # state_pub.send('STOP ppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp')
     rootLogger.debug("COMM_STOP")
 def steer_handler():
     print("get steer from teleop")
@@ -82,13 +87,39 @@ def steer2_handler():
 def enable_handler():
     print("get enable from teleop")
     if comun:
+        # state_pub.send("ENABLE EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE")
         comun.activate_connection()
     rootLogger.debug("COMM_ENABLE")
 def disable_handler():
+
     print("get disable from teleop")
     if comun:
+        # state_pub.send('DISABLE ddddddddddddddddddddddddddddddddddddddddddd')
+        SEND_DATA_ENABLE = 1
         comun.deactivate_connection()
     rootLogger.debug("COMM_DISABLE")
+def steer_handler():
+    print('i get steer')
+    if comun:
+        print('In steer handler')
+        # state_pub.send("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        comun.on_steer()
+    rootLogger.debug("COMM_STEER")
+def steer2_handler():
+    # print('i get ster GGGGGGGGGGGGGGGGGGGGGGG')
+    if comun:
+        print('In steer2 handler')
+        # state_pub.send("????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????")
+        comun.on_green()
+    rootLogger.debug("COMM_STEER2")
+def steer3_handler():
+    print('i get ster 33333333333333333333333333333333333333333333333333333333333333333333333')
+    if comun:
+        print('In steer3 handler')
+        # state_pub.send("????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????")
+        comun.on_r3()
+    rootLogger.debug("COMM_STEER3")
+
 
 sub.on_set = set_handler
 sub.on_start = start_handler
@@ -111,15 +142,15 @@ while True:
             
             if inp.lvl == communication.StateMessage.INFO_LVL or \
                 inp.lvl == communication.StateMessage.UNKNOWN_LVL:
-                rootLogger.info('From uC: {}'.format(inp.msg))
+                # rootLogger.info('From uC: {}'.format(inp.msg))
                 state_pub.send(inp.msg)
 
             if inp.lvl == communication.StateMessage.WARNING_LVL:
-                rootLogger.warning('From uC: {}'.format(inp.msg))
+                # rootLogger.warning('From uC: {}'.format(inp.msg))
                 state_pub.send(inp.msg)
 
             if inp.lvl == communication.StateMessage.ERROR_LVL:
-                rootLogger.error('From uC: {}'.format(inp.msg))
+                # rootLogger.error('From uC: {}'.format(inp.msg))
                 state_pub.send(inp.msg)
 
     time.sleep(0.001)

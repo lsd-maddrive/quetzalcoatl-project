@@ -29,8 +29,8 @@ static THD_FUNCTION(gearshift, arg) {
 
 
         switch(gear){
-        case 0: gear_num = shiftMTToNeutral ( 15000 ); break;
-        case 1: gear_num = shiftMTToNextGear(1,10000); break;
+        case 0: gear_num = shiftMTToNeutral ( 5000 ); break;
+        case 1: gear_num = shiftMTToNextGear(1,2000); break;
         case 2: gear_num = shiftMTToNextGear(2,10000); break;
         case 3: gear_num = shiftMTToNextGear(3,10000); break;
         case 4: gear_num = shiftMTToNextGear(4,10000); break;
@@ -74,7 +74,7 @@ static THD_FUNCTION(mt_control, arg) {
                     {
                         /* Shifting is start and thread wake up! */
                         chSysLock();
-                        chThdResume(&trp_gearshift, MSG_OK);
+                        chThdResumeS(&trp_gearshift, MSG_OK);
                         chSysUnlock();
 
                         gear = 2;
@@ -119,12 +119,7 @@ int8_t mtControlMannualyShiftGear ( uint8_t command_gear )
 {
 
     /* Shifting is start and thread wake up! */
-    chSysLock();
     chThdResume(&trp_gearshift, MSG_OK);
-    chSysUnlock();
-
-   // palSetLine(LINE_LED2);
-
 
     gear = command_gear;
     return gear_num;

@@ -32,14 +32,15 @@ static THD_FUNCTION(emergency_button_stop, arg) {
             chSysUnlock();
         }
         else{
-            palSetLine(LINE_LED2);
+           // soundSignalStartContiniousSignals ();
+            //palSetLine(LINE_LED2);
             pedalsClutchPress ( 1000 );
 
             while(pedalsClutchGetState()){
                 chThdSleepMilliseconds( 50 );
             }
 
-            pedalsBrakePress( 5000 );
+            pedalsBrakePress( 1000 );
             while(pedalsBrakeGetState()){
                 chThdSleepMilliseconds( 50 );
             }
@@ -57,7 +58,7 @@ static THD_FUNCTION(emergency_button_stop, arg) {
 //                }
              is_breaking_thread_work = false;
              is_emergency_stop_btn_pressed = false;
-             palClearLine(LINE_LED2);
+           //  palClearLine(LINE_LED2);
              chSysLock();
              chThdSuspendS(&trp_emergency_button_stop);
              chSysUnlock();
@@ -77,7 +78,7 @@ bool emergencyFullStop (void) {
       is_breaking_thread_work = true;
       /* Wake up braking thread */
       chSysLock();
-      chThdResume(&trp_emergency_button_stop, MSG_OK);
+      chThdResumeS(&trp_emergency_button_stop, MSG_OK);
       chSysUnlock();
   }
   return (is_breaking_thread_work && (pedalsClutchGetPosition() == pedalsClutchGetMaxPosition()) && (pedalsBrakeGetPosition() == pedalsBrakeGetMaxPosition()) && (mtControlGetCurrentGearNum()==0));
@@ -99,9 +100,9 @@ void extcb_base(EXTDriver *extp, expchannel_t channel)
         is_breaking_thread_work = true;
 //        chprintf( (BaseSequentialStream *)&SD3, "In Interrupt\n\r");
         /* Wake up braking thread */
-        chSysLock();
-        chThdResume(&trp_emergency_button_stop, MSG_OK);
-        chSysUnlock();
+        chSysLockFromISR();
+        chThdResumeI(&trp_emergency_button_stop, MSG_OK);
+        chSysUnlockFromISR();
     }
 
 }

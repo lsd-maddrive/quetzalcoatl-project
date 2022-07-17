@@ -68,24 +68,27 @@ static bool if_pedals_module_initialized = 0;
  * @brief      Perephery setup and lld initialization
  */
 void pedalsInit ( void ){
-     if ( if_pedals_module_initialized )
-     {
-         return;
-     }
+    if ( if_pedals_module_initialized )
+    {
+        return;
+    }
 
-     /* Clutch init*/
-     palSetLineMode( PAL_LINE( GPIOC, 6),  PAL_MODE_ALTERNATE(2) );
-     palSetLineMode( ClutchM.dir_line, PAL_MODE_OUTPUT_PUSHPULL);
-     MotorlldControlInit( &ClutchM );
+    /* Clutch init*/
+    palSetLineMode( PAL_LINE( GPIOC, 6),  PAL_MODE_ALTERNATE(2) );
+    palSetLineMode( ClutchM.dir_line, PAL_MODE_OUTPUT_PUSHPULL);
+    MotorlldControlInit( &ClutchM );
 
-     /* Brake init*/
-     palSetLineMode( PAL_LINE( GPIOD, 12),  PAL_MODE_ALTERNATE(2) );
-     palSetLineMode( BreakM.dir_line, PAL_MODE_OUTPUT_PUSHPULL);
-     MotorlldControlInit( &BreakM );
+    /* Brake init*/
+    palSetLineMode( PAL_LINE( GPIOD, 12),  PAL_MODE_ALTERNATE(2) );
+    palSetLineMode( BreakM.dir_line, PAL_MODE_OUTPUT_PUSHPULL);
+    MotorlldControlInit( &BreakM );
 
-     /* Accelerator pedal init*/
-     extDacInit();
-     if_pedals_module_initialized = 1;
+    /* Accelerator pedal init*/
+    extDacInit();
+    // palSetLine(LINE_LED1);
+    if_pedals_module_initialized = 1;
+
+    comm_dbgprintf_info("pedalsInit() done: %d", BreakM.position);
 }
 
 
@@ -115,7 +118,9 @@ int32_t pedalsClutchMove (double position, uint16_t speed ){
  * @params    speed - movement speed (look "moveClutchPedal" function description )
  */
 void pedalsClutchPress ( uint16_t speed ){
+     palSetLine(LINE_LED1);
     MotorRunContinuous(&ClutchM, 0, speed);
+
 }
 
 /*

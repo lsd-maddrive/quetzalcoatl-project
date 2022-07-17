@@ -1,6 +1,34 @@
-# Quetzalcoatl project
+# Quetzalcoatl uC firmware
+  
+## Подготовка
 
-Проект под командной разработкой  
+- Развернуть lwip в папке chibios176/ext
+
+## Notes
+
+- LWIP и SPI (нога A7) ломают друг-друга =(
+- Для работы над данным проектом были добавлены PWM драйверы.
+  - Для установки патча скопируйте папку (не удаляйте предыдущую) `os` из папки `chibios_patch` к себе в папку `chibios*`.
+
+## Установка для ChibiOS
+
+### Установка патча на Linux
+
+- `export CHIBIOS_ROOT=$HOME/ChibiStudio/ChibiStudio17/chibios176/`
+- `sudo apt install gcc-arm-none-eabi`
+- `rsync -avp chibios_patch/os/ $CHIBIOS_ROOT/os/`
+
+### Установка LWIP (драйвер сетевой коммуникации)
+
+- Распакуйте архив liwp_*.zip в папке /ext
+
+## Управление через команды ROS
+
+- Необходимо реализовать в функциях *_cb в файле [src/ros.cpp](src/ros.cpp)
+
+
+## References
+
 Некоторые [правила оформления](https://github.com/KaiL4eK/tools_sandbox/blob/master/rules_template.md)
 
 
