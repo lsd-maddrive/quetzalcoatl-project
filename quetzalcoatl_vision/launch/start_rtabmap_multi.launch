@@ -40,22 +40,6 @@
     <arg name="odom_info_data" default="true" />
     <arg name="wait_for_transform" default="true" />
 
-
-    <!-- <group ns="rs_camera_left">
-        <node pkg="nodelet" type="nodelet" name="rgbd_sync" args="$(arg nodelet)" output="screen">
-            <remap from="rgb/image" to="$(arg rgb_topic)" />
-            <remap from="depth/image" to="$(arg depth_topic)" />
-            <remap from="rgb/camera_info" to="$(arg camera_info_topic)" />
-        </node>
-    </group>
-    <group ns="rs_camera_right">
-        <node pkg="nodelet" type="nodelet" name="rgbd_sync" args="$(arg nodelet)" output="screen">
-            <remap from="rgb/image" to="$(arg rgb_topic)" />
-            <remap from="depth/image" to="$(arg depth_topic)" />
-            <remap from="rgb/camera_info" to="$(arg camera_info_topic)" />
-        </node>
-    </group> -->
-
     <group if="$(arg rtab)" ns="rtabmap">
 
         <!-- Odometry -->
