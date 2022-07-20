@@ -24,7 +24,7 @@
     <arg name="camera_info_topic" default="color/camera_info" />
 
     <group ns="$(arg camera1)">
-        <include file="$(find quetzalcoatl_vision)/launch/drivers/driver_multiple_realsense.launch">
+        <include file="$(find quetzalcoatl_vision)/launch/drivers/driver_realsense.launch">
             <arg name="serial_no" value="$(arg serial_no_camera1)" />
             <arg name="tf_prefix" value="$(arg tf_prefix_camera1)" />
             <arg name="initial_reset" value="$(arg initial_reset)" />
@@ -41,7 +41,7 @@
     </group>
 
     <group ns="$(arg camera2)">
-        <include file="$(find quetzalcoatl_vision)/launch/drivers/driver_multiple_realsense.launch">
+        <include file="$(find quetzalcoatl_vision)/launch/drivers/driver_realsense.launch">
             <arg name="serial_no" value="$(arg serial_no_camera2)" />
             <arg name="tf_prefix" value="$(arg tf_prefix_camera2)" />
             <arg name="initial_reset" value="$(arg initial_reset)" />
