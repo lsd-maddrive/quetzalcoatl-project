@@ -38,5 +38,8 @@
     </include>
 
     <node if="$(arg rviz)" name="rviz" pkg="rviz" type="rviz" args="-d $(find quetzalcoatl_software)/config/rviz/common_sim.rviz" />
-    
+
+    <!-- Sync cameras for RGBD-->
+    <include file="$(find quetzalcoatl_software)/launch/sim/rgbd_sim_sync.launch"/>
+
 </launch>

@@ -34,9 +34,4 @@
   <!-- Publish dynamic TFs (non-fixed joints) -->
   <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
 
-  <!-- Sync cameras for RGBD-->
-
-<include file="$(find quetzalcoatl_software)/launch/sim/rgbd_sim_sync.launch"/>
-
-
 </launch>

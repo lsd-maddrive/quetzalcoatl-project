@@ -18,6 +18,7 @@ catkin build \
     elp_stereo_camera \
     stereo_image_proc \
     ublox \
+    maddrive_urdf_tools \
     --cmake-args -D OpenCV_DIR="/usr/local/lib/cmake/opencv4" -D RTABMAP_SYNC_MULTI_RGBD=ON
 
     # ackermann_controller_plugin \
