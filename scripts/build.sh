@@ -9,6 +9,8 @@ catkin build \
     quetzalcoatl_maps \
     quetzalcoatl_msgs \
     quetzalcoatl_description \
+    realsense2_camera \
+    realsense2_description \
     cv_bridge \
     image_geometry \
     rtabmap \
@@ -20,5 +22,3 @@ catkin build \
     ublox \
     maddrive_urdf_tools \
     --cmake-args -D OpenCV_DIR="/usr/local/lib/cmake/opencv4" -D RTABMAP_SYNC_MULTI_RGBD=ON
-
-    # ackermann_controller_plugin \
