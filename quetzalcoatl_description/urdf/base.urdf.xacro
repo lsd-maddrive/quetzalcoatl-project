@@ -66,9 +66,11 @@
 	<link name="base_footprint" />
 	<gazebo reference="base_footprint" />
 
+	<!-- BASE LINK-->
 	<link name="base_link" />
 	<gazebo reference="base_link" />
 
+	<!-- BASE FRONT AXIS LINK-->
 	<link name="base_front_axis_link" />
 	<gazebo reference="base_front_axis_link" />
 
