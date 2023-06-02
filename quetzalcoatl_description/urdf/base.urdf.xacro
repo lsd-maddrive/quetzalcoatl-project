@@ -8,17 +8,13 @@
 	<!-- Large box =) -->
 	<link name="base_center">
 		<visual>
-			<origin
-					xyz="0 0 0"
-					rpy="0 0 0" />
+			<origin xyz="0 0 0" rpy="0 0 0" />
 			<geometry>
 				<box size="${body_length} ${body_width} ${body_heigth}" />
 			</geometry>
 		</visual>
 		<collision>
-			<origin
-					xyz="0 0 0"
-					rpy="0 0 0" />
+			<origin xyz="0 0 0" rpy="0 0 0" />
 			<geometry>
 				<box size="${body_length} ${body_width} ${body_heigth}" />
 			</geometry>
@@ -28,25 +24,19 @@
 				length="${body_length}"
 				height="${body_heigth}"
 				mass="${body_mass}">
-			<origin
-					xyz="0 0 0"
-					rpy="0 0 0" />
+			<origin xyz="0 0 0" rpy="0 0 0" />
 		</xacro:box_inertia>
 	</link>
 
 	<link name="nose_center">
 		<visual>
-			<origin
-					xyz="0 0 0"
-					rpy="0 0 0" />
+			<origin xyz="0 0 0" rpy="0 0 0" />
 			<geometry>
 				<box size="${nose_length} ${nose_width} ${nose_heigth}" />
 			</geometry>
 		</visual>
 		<collision>
-			<origin
-					xyz="0 0 0"
-					rpy="0 0 0" />
+			<origin xyz="0 0 0" rpy="0 0 0" />
 			<geometry>
 				<box size="${nose_length} ${nose_width} ${nose_heigth}" />
 			</geometry>
@@ -56,9 +46,7 @@
 				length="${nose_length}"
 				height="${nose_heigth}"
 				mass="${nose_mass}">
-			<origin
-					xyz="0 0 0"
-					rpy="0 0 0" />
+			<origin xyz="0 0 0" rpy="0 0 0" />
 		</xacro:box_inertia>
 	</link>
 
@@ -74,50 +62,32 @@
 	<link name="base_front_axis_link" />
 	<gazebo reference="base_front_axis_link" />
 
-	<joint
-			name="base_footprint_2_link"
-			type="fixed">
+	<joint name="base_footprint_2_link" type="fixed">
 		<parent link="base_footprint" />
 		<child link="base_link" />
-		<origin
-				xyz="0 0 ${wheel_radius}"
-				rpy="0 0 0" />
+		<origin xyz="0 0 ${wheel_radius}" rpy="0 0 0" />
 	</joint>
 
-	<joint
-			name="base_link_2_center"
-			type="fixed">
+	<joint name="base_link_2_center" type="fixed">
 		<parent link="base_link" />
 		<child link="base_center" />
-		<origin
-				xyz="${body_length/2-rear_wheel_2_bumper} 0 ${body_heigth/2}"
-				rpy="0 0 0" />
+		<origin xyz="${body_length/2-rear_wheel_2_bumper} 0 ${body_heigth/2}" rpy="0 0 0" />
 	</joint>
 
-	<joint
-			name="base_link_2_front_axis"
-			type="fixed">
+	<joint name="base_link_2_front_axis" type="fixed">
 		<parent link="base_link" />
 		<child link="base_front_axis_link" />
-		<origin
-				xyz="${wheelbase} 0 0"
-				rpy="0 0 0" />
+		<origin xyz="${wheelbase} 0 0" rpy="0 0 0" />
 	</joint>
 
-	<joint
-			name="base_front_axis_2_nose_center"
-			type="fixed">
+	<joint name="base_front_axis_2_nose_center" type="fixed">
 		<parent link="base_front_axis_link" />
 		<child link="nose_center" />
-		<origin
-				xyz="${nose_length/2} 0 ${nose_heigth/2}"
-				rpy="0 0 0" />
+		<origin xyz="${nose_length/2} 0 ${nose_heigth/2}" rpy="0 0 0" />
 	</joint>
 
 	<gazebo>
-		<plugin
-				name="interface_plugin"
-				filename="libackermann_controller_plugin.so">
+		<plugin name="interface_plugin" filename="libackermann_controller_plugin.so">
 			<debug>false</debug>
 			<maxSteerRad>${wheel_mid_turn_limit}</maxSteerRad>
 			<wheelbase>${wheelbase}</wheelbase>
