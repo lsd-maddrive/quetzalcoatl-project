@@ -4,11 +4,7 @@ export CMAKE_PREFIX_PATH=/usr/local/lib/cmake/:$CMAKE_PREFIX_PATH
 export LD_LIBRARY_PATH=/usr/local/lib/:$LD_LIBRARY_PATH
 
 catkin build \
-    quetzalcoatl_software \
-    quetzalcoatl_vision \
-    quetzalcoatl_maps \
-    quetzalcoatl_msgs \
-    quetzalcoatl_description \
+    quetzalcoatl-project \
     realsense2_camera \
     realsense2_description \
     cv_bridge \
