@@ -5,7 +5,27 @@
 	<xacro:include filename="$(find maddrive_urdf_tools)/urdf/macros/wheels.urdf.xacro" />
 	<xacro:include filename="$(find maddrive_urdf_tools)/urdf/macros/inertia.urdf.xacro" />
 
-	<!-- Large box =) -->
+	<!-- BASE FOOTPRINT-->
+	<link name="base_footprint" />
+	<gazebo reference="base_footprint" />
+
+	<joint name="base_footprint_2_base_link" type="fixed">
+		<parent link="base_footprint" />
+		<child link="base_link" />
+		<origin xyz="0 0 ${wheel_radius}" rpy="0 0 0" />
+	</joint>
+
+	<!-- BASE LINK-->
+	<link name="base_link" />
+	<gazebo reference="base_link" />
+
+	<joint name="base_link_2_base_center" type="fixed">
+		<parent link="base_link" />
+		<child link="base_center" />
+		<origin xyz="${body_length/2-rear_wheel_2_bumper} 0 ${body_heigth/2}" rpy="0 0 0" />
+	</joint>
+
+	<!-- BASE CENTER -->
 	<link name="base_center">
 		<visual>
 			<origin xyz="0 0 0" rpy="0 0 0" />
@@ -27,7 +47,25 @@
 			<origin xyz="0 0 0" rpy="0 0 0" />
 		</xacro:box_inertia>
 	</link>
+	<gazebo reference="base_center" />
 
+	<joint name="base_link_2_base_front_axis_link" type="fixed">
+		<parent link="base_link" />
+		<child link="base_front_axis_link" />
+		<origin xyz="${wheelbase} 0 0" rpy="0 0 0" />
+	</joint>
+
+	<!-- BASE FRONT AXIS LINK-->
+	<link name="base_front_axis_link" />
+	<gazebo reference="base_front_axis_link" />
+
+	<joint name="base_front_axis_link_2_nose_center" type="fixed">
+		<parent link="base_front_axis_link" />
+		<child link="nose_center" />
+		<origin xyz="${nose_length/2} 0 ${nose_heigth/2}" rpy="0 0 0" />
+	</joint>
+
+	<!-- NOSE_CENTER-->
 	<link name="nose_center">
 		<visual>
 			<origin xyz="0 0 0" rpy="0 0 0" />
@@ -49,44 +87,32 @@
 			<origin xyz="0 0 0" rpy="0 0 0" />
 		</xacro:box_inertia>
 	</link>
+	<gazebo reference="nose_center" />
 
-	<!-- BASE FOOTPRINT-->
-	<link name="base_footprint" />
-	<gazebo reference="base_footprint" />
-
-	<!-- BASE LINK-->
-	<link name="base_link" />
-	<gazebo reference="base_link" />
-
-	<!-- BASE FRONT AXIS LINK-->
-	<link name="base_front_axis_link" />
-	<gazebo reference="base_front_axis_link" />
-
-	<joint name="base_footprint_2_link" type="fixed">
-		<parent link="base_footprint" />
-		<child link="base_link" />
-		<origin xyz="0 0 ${wheel_radius}" rpy="0 0 0" />
-	</joint>
-
-	<joint name="base_link_2_center" type="fixed">
-		<parent link="base_link" />
-		<child link="base_center" />
-		<origin xyz="${body_length/2-rear_wheel_2_bumper} 0 ${body_heigth/2}" rpy="0 0 0" />
-	</joint>
-
-	<joint name="base_link_2_front_axis" type="fixed">
-		<parent link="base_link" />
-		<child link="base_front_axis_link" />
-		<origin xyz="${wheelbase} 0 0" rpy="0 0 0" />
-	</joint>
-
-	<joint name="base_front_axis_2_nose_center" type="fixed">
-		<parent link="base_front_axis_link" />
-		<child link="nose_center" />
-		<origin xyz="${nose_length/2} 0 ${nose_heigth/2}" rpy="0 0 0" />
-	</joint>
+	<xacro:steer_wheel
+			name="front_right_wheel"
+			base_name="base_link"
+			xyz="${wheelbase} -${track_width/2} 0"
+			steer_limit="${wheel_mid_turn_limit}" />
+	<xacro:steer_wheel
+			name="front_left_wheel"
+			base_name="base_link"
+			xyz="${wheelbase} ${track_width/2} 0"
+			steer_limit="${wheel_mid_turn_limit}" />
+	<xacro:speed_wheel
+			name="rear_right_wheel"
+			base_name="base_link"
+			xyz="0 -${track_width/2} 0" />
+	<xacro:speed_wheel
+			name="rear_left_wheel"
+			base_name="base_link"
+			xyz="0 ${track_width/2} 0" />
 
 	<gazebo>
+		<!-- <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+			<robotNamespace>/</robotNamespace>
+			<robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+		</plugin> -->
 		<plugin name="interface_plugin" filename="libackermann_controller_plugin.so">
 			<debug>false</debug>
 			<maxSteerRad>${wheel_mid_turn_limit}</maxSteerRad>
@@ -133,22 +159,4 @@
 		</plugin>
 	</gazebo>
 
-	<xacro:steer_wheel
-			name="front_right_wheel"
-			base_name="base_link"
-			xyz="${wheelbase} -${track_width/2} 0"
-			steer_limit="${wheel_mid_turn_limit}" />
-	<xacro:steer_wheel
-			name="front_left_wheel"
-			base_name="base_link"
-			xyz="${wheelbase} ${track_width/2} 0"
-			steer_limit="${wheel_mid_turn_limit}" />
-	<xacro:speed_wheel
-			name="rear_right_wheel"
-			base_name="base_link"
-			xyz="0 -${track_width/2} 0" />
-	<xacro:speed_wheel
-			name="rear_left_wheel"
-			base_name="base_link"
-			xyz="0 ${track_width/2} 0" />
 </robot>
