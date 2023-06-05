@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <robot
-		name="gazel"
+		name="gazelle"
 		xmlns:xacro="http://www.ros.org/wiki/xacro">
 
 	<xacro:include filename="$(find quetzalcoatl_description)/urdf/base.urdf.xacro" />

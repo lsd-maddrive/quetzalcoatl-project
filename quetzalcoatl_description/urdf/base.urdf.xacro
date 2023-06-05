@@ -16,7 +16,14 @@
 	</joint>
 
 	<!-- BASE LINK-->
-	<link name="base_link" />
+	<link name="base_link">
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<mesh filename="package://quetzalcoatl_description/meshes/gazelle-next.dae" />
+			</geometry>
+		</visual>
+	</link>
 	<gazebo reference="base_link" />
 
 	<joint name="base_link_2_base_center" type="fixed">
@@ -27,12 +34,6 @@
 
 	<!-- BASE CENTER -->
 	<link name="base_center">
-		<visual>
-			<origin xyz="0 0 0" rpy="0 0 0" />
-			<geometry>
-				<box size="${body_length} ${body_width} ${body_heigth}" />
-			</geometry>
-		</visual>
 		<collision>
 			<origin xyz="0 0 0" rpy="0 0 0" />
 			<geometry>
@@ -67,12 +68,6 @@
 
 	<!-- NOSE_CENTER-->
 	<link name="nose_center">
-		<visual>
-			<origin xyz="0 0 0" rpy="0 0 0" />
-			<geometry>
-				<box size="${nose_length} ${nose_width} ${nose_heigth}" />
-			</geometry>
-		</visual>
 		<collision>
 			<origin xyz="0 0 0" rpy="0 0 0" />
 			<geometry>

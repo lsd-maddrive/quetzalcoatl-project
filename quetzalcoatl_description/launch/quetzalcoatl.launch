@@ -15,14 +15,13 @@
 
   <param name="robot_description" command="$(find xacro)/xacro '$(find quetzalcoatl_description)/urdf/robocross_22.urdf.xacro' robot_name:=gazel" />
 
-
   <node name="robot_spawn" pkg="gazebo_ros" type="spawn_model" output="screen"
-        args="-urdf
-              -param robot_description
-              -model robot
-              -x $(arg x)
+        args="-x $(arg x)
               -y $(arg y)
-              -z $(arg z)" />
+              -z $(arg z)
+              -urdf
+              -model robot
+              -param robot_description" />
 
   <!-- include gazebo_ros launcher -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
