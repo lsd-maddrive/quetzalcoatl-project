@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <launch>
+
+  <arg name="rviz" default="true" />
   <!-- overwriting these args -->
   <arg name="debug" default="false" />
   <arg name="verbose" default="false" />
@@ -13,7 +15,7 @@
   <arg name="y" default="0" />
   <arg name="z" default="0.2" />
 
-  <param name="robot_description" command="$(find xacro)/xacro '$(find quetzalcoatl_description)/urdf/robocross_22.urdf.xacro' robot_name:=gazel" />
+  <param name="robot_description" command="$(find xacro)/xacro '$(find quetzalcoatl_description)/urdf/robocross_22.urdf.xacro' robot_name:=gazelle" />
 
   <node name="robot_spawn" pkg="gazebo_ros" type="spawn_model" output="screen"
         args="-x $(arg x)
@@ -38,5 +40,8 @@
 
   <!-- Publish dynamic TFs (non-fixed joints) -->
   <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+
+  <!-- rviz-->
+    <node if="$(arg rviz)" name="rviz" pkg="rviz" type="rviz" args="-d $(find quetzalcoatl_description)/rviz/overview.rviz" />
 
 </launch>
