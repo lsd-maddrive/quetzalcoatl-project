@@ -4,10 +4,17 @@
 	<xacro:include filename="$(find quetzalcoatl_description)/urdf/params.urdf.xacro" />
 	<xacro:include filename="$(find maddrive_urdf_tools)/urdf/macros/wheels.urdf.xacro" />
 	<xacro:include filename="$(find maddrive_urdf_tools)/urdf/macros/inertia.urdf.xacro" />
+	<xacro:include filename="$(find maddrive_urdf_tools)/urdf/macros/common.urdf.xacro" />
 
 	<!-- BASE FOOTPRINT-->
-	<link name="base_footprint" />
+	<link name="base_footprint">
+		<xacro:null_visual/>
+		<xacro:null_collision/>
+		<xacro:null_inertia/>
+	</link>
 	<gazebo reference="base_footprint" />
+
+	<!-- BASE LINK-->
 
 	<joint name="base_footprint_2_base_link" type="fixed">
 		<parent link="base_footprint" />
@@ -15,7 +22,6 @@
 		<origin xyz="0 0 ${wheel_radius}" rpy="0 0 0" />
 	</joint>
 
-	<!-- BASE LINK-->
 	<link name="base_link">
 		<visual>
 			<origin xyz="0 0 0" rpy="0 0 0" />
@@ -23,8 +29,12 @@
 				<mesh filename="package://quetzalcoatl_description/meshes/gazelle-next.dae" />
 			</geometry>
 		</visual>
+		<xacro:null_collision/>
+		<xacro:null_inertia/>
 	</link>
 	<gazebo reference="base_link" />
+
+	<!-- BASE CENTER -->
 
 	<joint name="base_link_2_base_center" type="fixed">
 		<parent link="base_link" />
@@ -32,8 +42,8 @@
 		<origin xyz="${body_length/2-rear_wheel_2_bumper} 0 ${body_heigth/2}" rpy="0 0 0" />
 	</joint>
 
-	<!-- BASE CENTER -->
 	<link name="base_center">
+		<xacro:null_visual/>
 		<collision>
 			<origin xyz="0 0 0" rpy="0 0 0" />
 			<geometry>
@@ -50,15 +60,22 @@
 	</link>
 	<gazebo reference="base_center" />
 
+	<!-- BASE FRONT AXIS LINK-->
+
 	<joint name="base_link_2_base_front_axis_link" type="fixed">
 		<parent link="base_link" />
 		<child link="base_front_axis_link" />
 		<origin xyz="${wheelbase} 0 0" rpy="0 0 0" />
 	</joint>
 
-	<!-- BASE FRONT AXIS LINK-->
-	<link name="base_front_axis_link" />
+	<link name="base_front_axis_link">
+		<xacro:null_visual/>
+		<xacro:null_collision/>
+		<xacro:null_inertia/>
+	</link>
 	<gazebo reference="base_front_axis_link" />
+
+	<!-- NOSE_CENTER-->
 
 	<joint name="base_front_axis_link_2_nose_center" type="fixed">
 		<parent link="base_front_axis_link" />
@@ -66,8 +83,8 @@
 		<origin xyz="${nose_length/2} 0 ${nose_heigth/2}" rpy="0 0 0" />
 	</joint>
 
-	<!-- NOSE_CENTER-->
 	<link name="nose_center">
+		<xacro:null_visual/>
 		<collision>
 			<origin xyz="0 0 0" rpy="0 0 0" />
 			<geometry>
@@ -83,6 +100,8 @@
 		</xacro:box_inertia>
 	</link>
 	<gazebo reference="nose_center" />
+
+	<!-- WHEELS-->
 
 	<xacro:steer_wheel
 			prefix="front_right"
@@ -150,7 +169,6 @@
 			<steer_imax>500.0</steer_imax>
 			<steer_imin>-500.0</steer_imin>
 			<steer_max_effort>20000.0</steer_max_effort>
-
 		</plugin>
 	</gazebo>
 
