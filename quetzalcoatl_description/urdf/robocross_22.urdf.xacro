@@ -9,19 +9,19 @@
 
 	<xacro:realsense_435
 			name="rs_camera_left"
-			base_link_name="base_front_axis_link"
+			parent="base_front_axis_link"
 			xyz="0.05 1 1.45"
 			rpy="0 0 0.1" />
 
 	<xacro:realsense_435
 			name="rs_camera_right"
-			base_link_name="base_front_axis_link"
+			parent="base_front_axis_link"
 			xyz="0.05 -1 1.45"
 			rpy="0 0 -0.1" />
 
 	<xacro:elp_stereo
 			name="elp_stereo"
-			base_link_name="base_link"
+			parent="base_link"
 			xyz="-1.587 0 0.2"
 			rpy="0 0 ${pi}" />
 </robot>
