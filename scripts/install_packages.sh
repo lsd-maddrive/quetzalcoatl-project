@@ -14,6 +14,7 @@ sudo apt-get install \
     ros-$ROS_DISTRO-hector-gazebo-plugins \
     ros-$ROS_DISTRO-gazebo-plugins \
     ros-$ROS_DISTRO-octomap-msgs \
+    ros-$ROS_DISTRO-ddynamic-reconfigure \
     libopenvdb-dev
 
 #requirements for RS-ros
