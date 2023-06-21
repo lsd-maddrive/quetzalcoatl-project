@@ -12,7 +12,7 @@ void steerEncInit( void );
  * @brief   Read data from absolute encoder 
  * @return  Position from 0 to 360 degrees
  */
-float steerGetPosition( void );
+uint16_t steerGetPosition( void );//float
 
 /**
  * @brief   Initialize steer motor driver. US talk with driver via SPI
@@ -70,6 +70,6 @@ bool steerMotorEnableInvert ( void );
 bool steerMotorDirectionInvert( void );
 
 
-int steerSyncTestDriver();
+int steerSyncTestDriver(void);
 
 #endif  /*INCLUDE_LLD_STEER_H */
