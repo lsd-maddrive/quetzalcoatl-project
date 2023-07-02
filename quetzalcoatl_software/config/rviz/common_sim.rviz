@@ -3,8 +3,7 @@ Panels:
     Help Height: 87
     Name: Displays
     Property Tree Widget:
-      Expanded:
-        - /Global Options1
+      Expanded: ~
       Splitter Ratio: 0.5
     Tree Height: 261
   - Class: rviz/Selection
@@ -32,6 +31,24 @@ Toolbars:
 Visualization Manager:
   Class: ""
   Displays:
+    - Alpha: 0.5
+      Cell Size: 1
+      Class: rviz/Grid
+      Color: 160; 160; 164
+      Enabled: true
+      Line Style:
+        Line Width: 0.029999999329447746
+        Value: Lines
+      Name: Grid
+      Normal Cell Count: 0
+      Offset:
+        X: 0
+        Y: 0
+        Z: 0
+      Plane: XY
+      Plane Cell Count: 1000
+      Reference Frame: <Fixed Frame>
+      Value: true
     - Class: rviz/TF
       Enabled: true
       Filter (blacklist): ""
@@ -51,11 +68,23 @@ Visualization Manager:
           Value: true
         elp_stereo_optical_frame:
           Value: true
+        front_left_steer_link:
+          Value: true
+        front_left_wheel_link:
+          Value: true
+        front_right_steer_link:
+          Value: true
+        front_right_wheel_link:
+          Value: true
         map:
           Value: true
         nose_center:
           Value: true
         odom:
+          Value: true
+        rear_left_wheel_link:
+          Value: true
+        rear_right_wheel_link:
           Value: true
         rs_camera_left_imu_link:
           Value: true
@@ -68,18 +97,6 @@ Visualization Manager:
         rs_camera_right_link:
           Value: true
         rs_camera_right_optical_frame:
-          Value: true
-        steer_front_left_wheel:
-          Value: true
-        steer_front_right_wheel:
-          Value: true
-        wheel_front_left_wheel:
-          Value: true
-        wheel_front_right_wheel:
-          Value: true
-        wheel_rear_left_wheel:
-          Value: true
-        wheel_rear_right_wheel:
           Value: true
       Marker Alpha: 1
       Marker Scale: 1
@@ -110,15 +127,15 @@ Visualization Manager:
                 elp_stereo_link:
                   elp_stereo_optical_frame:
                     {}
-                steer_front_left_wheel:
-                  wheel_front_left_wheel:
+                front_left_steer_link:
+                  front_left_wheel_link:
                     {}
-                steer_front_right_wheel:
-                  wheel_front_right_wheel:
+                front_right_steer_link:
+                  front_right_wheel_link:
                     {}
-                wheel_rear_left_wheel:
+                rear_left_wheel_link:
                   {}
-                wheel_rear_right_wheel:
+                rear_right_wheel_link:
                   {}
       Update Interval: 0
       Value: true
@@ -211,6 +228,7 @@ Visualization Manager:
       Unreliable: false
       Value: true
       Visibility:
+        Grid: true
         Polygon: true
         Right_cam: true
         RobotModel: true
@@ -237,6 +255,7 @@ Visualization Manager:
       Unreliable: false
       Value: true
       Visibility:
+        Grid: true
         Left_cam: true
         Polygon: true
         RobotModel: true
@@ -263,6 +282,7 @@ Visualization Manager:
       Unreliable: false
       Value: true
       Visibility:
+        Grid: true
         Left_cam: true
         Polygon: true
         Right_cam: true
@@ -408,7 +428,35 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
+        front_left_steer_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        front_left_wheel_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        front_right_steer_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        front_right_wheel_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
         nose_center:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        rear_left_wheel_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        rear_right_wheel_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -441,34 +489,6 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        steer_front_left_wheel:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        steer_front_right_wheel:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        wheel_front_left_wheel:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        wheel_front_right_wheel:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        wheel_rear_left_wheel:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        wheel_rear_right_wheel:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
       Name: RobotModel
       Robot Description: robot_description
       TF Prefix: ""
@@ -479,7 +499,7 @@ Visualization Manager:
   Global Options:
     Background Color: 48; 48; 48
     Default Light: true
-    Fixed Frame: base_footprint
+    Fixed Frame: map
     Frame Rate: 30
   Name: root
   Tools:
@@ -503,7 +523,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 94.10789489746094
+      Distance: 132.21481323242188
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -511,9 +531,9 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: 0
-        Y: 0
-        Z: 0
+        X: 18.0699405670166
+        Y: 0.8382378816604614
+        Z: 0.01806998997926712
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false

@@ -13,7 +13,7 @@
         <param name="speed/frwd_limit" value="1.2" />
         <param name="speed/bkwrd_limit" value="-1.2" />
         <param name="steer/limit" value="40" />
-        <remap from="cmd_vel" to="cmd_vel" />
+        <remap from="cmd_vel" to="joy_vel" />
     </node>
 
 </launch>
