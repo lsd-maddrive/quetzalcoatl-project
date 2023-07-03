@@ -29,7 +29,7 @@
     <include file="$(find quetzalcoatl_software)/launch/sim/rgbd_sim_sync.launch"/>
 
     <!-- joy teleop-->
-    <include file="$(find quetzalcoatl_software)/launch/drivers/start_joy_teleop.launch">
+    <include file="$(find maddrive_teleop)/launch/start_joy_teleop.launch">
     </include>
     <!-- move_base -->
     <include file="$(find quetzalcoatl_software)/launch/drivers/move_base.launch">

@@ -17,5 +17,6 @@ catkin build \
     stereo_image_proc \
     ublox \
     maddrive_urdf_tools \
+    maddrive_teleop \
     -j$(($(nproc)-2)) \
     --cmake-args -D OpenCV_DIR="/usr/local/lib/cmake/opencv4" -D RTABMAP_SYNC_MULTI_RGBD=ON
