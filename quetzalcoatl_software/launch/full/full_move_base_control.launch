@@ -30,7 +30,7 @@
   </node> 
 
   <include file="$(find quetzalcoatl_software)/launch/drivers/move_base.launch">
-    <arg name="folder_name" value="move_base_vo" />
+    <arg name="config_folder_name" value="move_base_vo" />
     <arg name="cmd_topic" value="quetzalcoatl/cmd_vel_raw" />
   </include>
 
