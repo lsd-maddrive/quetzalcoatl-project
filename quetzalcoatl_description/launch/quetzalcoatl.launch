@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <launch>
+
+  <arg name="rviz" default="false" />
   <!-- overwriting these args -->
   <arg name="debug" default="false" />
   <arg name="verbose" default="false" />
@@ -9,14 +11,21 @@
   <arg name="world" default="" />
   <arg name="use_sim_time" default="true" />
 
-  <arg name="control" default="false" />
-
-  <param name="robot_description" command="$(find xacro)/xacro '$(find quetzalcoatl_description)/urdf/robocross_22.urdf.xacro' robot_name:=gazel" />
   <arg name="x" default="0" />
   <arg name="y" default="0" />
   <arg name="z" default="0.2" />
 
-  <node name="robot_spawn" pkg="gazebo_ros" type="spawn_model" output="screen" args="-urdf -param robot_description -model robot -x $(arg x) -y $(arg y) -z $(arg z)" />
+  <param name="robot_description"
+    command="$(find xacro)/xacro '$(find quetzalcoatl_description)/urdf/robocross_22.urdf.xacro'
+    robot_name:=gazelle" />
+
+  <node name="robot_spawn" pkg="gazebo_ros" type="spawn_model" output="screen"
+        args="-x $(arg x)
+              -y $(arg y)
+              -z $(arg z)
+              -urdf
+              -model robot
+              -param robot_description" />
 
   <!-- include gazebo_ros launcher -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
@@ -34,9 +43,7 @@
   <!-- Publish dynamic TFs (non-fixed joints) -->
   <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
 
-  <!-- Sync cameras for RGBD-->
-
-<include file="$(find quetzalcoatl_software)/launch/sim/rgbd_sim_sync.launch"/>
-
+  <!-- rviz-->
+    <node if="$(arg rviz)" name="rviz" pkg="rviz" type="rviz" args="-d $(find quetzalcoatl_description)/rviz/overview.rviz" />
 
 </launch>

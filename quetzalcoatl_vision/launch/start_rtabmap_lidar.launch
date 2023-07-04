@@ -13,7 +13,7 @@
   <arg name="rgbd_camera_left_topic" default="/rs_camera_left/rgbd_image" />
   <arg name="rgbd_camera_right_topic" default="/rs_camera_right/rgbd_image" />
   <arg name="database_path" default="$(find quetzalcoatl_maps)/3d_maps/new_map.db" />
-  <arg name="rtabmapviz" default="true" />
+  <arg name="rtabmap_viz" default="true" />
   <arg if="$(arg localization)" name="args" default="" />
   <arg unless="$(arg localization)" name="args" default="--delete_db_on_start" />
   <arg name="rtab" default="true" />
@@ -145,7 +145,7 @@
     </node>
 
     <!-- Visualisation RTAB-Map -->
-    <node if="$(arg rtabmapviz)" pkg="rtabmap_ros" type="rtabmapviz" name="rtabmapviz" args="-d $(find rtabmap_ros)/launch/config/rgbd_gui.ini" output="screen">
+    <node if="$(arg rtabmap_viz)" pkg="rtabmap_viz" type="rtabmap_viz" name="rtabmap_viz" args="-d $(find rtabmap_ros)/launch/config/rgbd_gui.ini" output="screen">
       <param name="subscribe_depth" type="bool" value="false" />
       <param name="subscribe_rgbd" type="bool" value="true" />
       <param name="subscribe_scan_cloud" type="bool" value="true" />
