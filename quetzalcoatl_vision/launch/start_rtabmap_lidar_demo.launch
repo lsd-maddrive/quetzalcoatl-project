@@ -14,7 +14,7 @@
   <!-- Required: -->
 
   <arg name="frame_id" default="base_footprint" />
-  <arg name="rtabmapviz" default="true" />
+  <arg name="rtabmap_viz" default="true" />
   <arg name="scan_20_hz" default="true" />
   <arg name="use_sim_time" default="false" />
   <param if="$(arg use_sim_time)" name="use_sim_time" value="true" />
@@ -101,7 +101,7 @@
       <param name="Icp/CorrespondenceRatio" type="string" value="0.4" />
     </node>
 
-    <node if="$(arg rtabmapviz)" name="rtabmapviz" pkg="rtabmap_ros" type="rtabmapviz" output="screen">
+    <node if="$(arg rtabmap_viz)" name="rtabmap_viz" pkg="rtabmap_viz" type="rtabmap_viz" output="screen">
       <param name="frame_id" type="string" value="base_footprint"/>
       <param name="odom_frame_id" type="string" value="odom"/>
       <param name="subscribe_odom_info" type="bool" value="true"/>

@@ -2,7 +2,7 @@
 <launch>
 
     <arg name="rviz" default="true" />
-    <arg name="rtabmapviz" default="true" />
+    <arg name="rtabmap_viz" default="true" />
     <arg name="gui" default="false" />
 
     <arg name="map_name" default="new_map.db" />
@@ -48,7 +48,7 @@
         <arg name="rtabmap" value="true" />
         <arg name="localization" value="$(arg localization)" />
         <arg name="database_path" value="$(find quetzalcoatl_maps)/3d_maps/$(arg map_name)" />
-        <arg name="rtabmapviz" value="$(arg rtabmapviz)" />
+        <arg name="rtabmap_viz" value="$(arg rtabmap_viz)" />
         <arg name="imu_topic" value="$(arg imu_topic)" />
     </include>
 

@@ -4,7 +4,7 @@
   <arg name="localization" default="true" /> <!-- set false to start mapping with move_base-->
   <arg name="debug" default="false" />
   <arg name='rviz' default="true" />
-  <arg name='rtabmapviz' default='true' />
+  <arg name='rtabmap_viz' default='true' />
 
   <!-- <include file="$(find quetzalcoatl_software)/launch/drivers/quetzalcoatl_tf_transforms.launch" /> -->
 
@@ -21,7 +21,7 @@
   <include file="$(find quetzalcoatl_vision)/launch/start_rtabmap.launch">
     <arg name="localization" value="$(arg localization)" />
     <arg name="database_path" value="$(find quetzalcoatl_maps)/3d_maps/$(arg map_name)" />
-    <arg name="rtabmapviz" value="$(arg rtabmapviz)" />
+    <arg name="rtabmap_viz" value="$(arg rtabmap_viz)" />
   </include>
 
   <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization" clear_params="true" output="screen">
