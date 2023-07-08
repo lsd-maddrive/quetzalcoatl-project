@@ -1,10 +1,12 @@
 <?xml version="1.0"?>
 <launch>
+
   <arg name="map_name" default="to_8_map.db" />
   <arg name="localization" default="true" /> <!-- set false to start mapping with move_base-->
-  <arg name="debug" default="false" />
+  <arg name="debug" default="false" /> <!-- rqt_plot -->
   <arg name='rviz' default="true" />
   <arg name='rtabmap_viz' default='true' />
+  <arg name="database_path" default="$(find quetzalcoatl_maps)/3d_maps/$(arg map_name)"/>
 
   <!-- <include file="$(find quetzalcoatl_software)/launch/drivers/quetzalcoatl_tf_transforms.launch" /> -->
 
@@ -20,31 +22,42 @@
   <!-- SLAM -->
   <include file="$(find quetzalcoatl_vision)/launch/start_rtabmap.launch">
     <arg name="localization" value="$(arg localization)" />
-    <arg name="database_path" value="$(find quetzalcoatl_maps)/3d_maps/$(arg map_name)" />
+    <arg name="database_path" value="$(arg database_path" />
     <arg name="rtabmap_viz" value="$(arg rtabmap_viz)" />
   </include>
 
+  <!-- robot_localization -->
   <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization" clear_params="true" output="screen">
     <rosparam command="load" file="$(find quetzalcoatl_software)/config/ekf/ekf_odom_vo.yaml" />
     <remap from="odometry/filtered" to="quetzalcoatl/odometry/filtered/local" />
-  </node> 
+  </node>
 
+  <!-- joy teleop-->
+  <include file="$(find maddrive_teleop)/launch/drivers/start_joy_teleop.launch">
+    <arg name="cmd_topic" value="joy_vel" />
+  </include>
+  <!-- move_base -->
   <include file="$(find quetzalcoatl_software)/launch/drivers/move_base.launch">
     <arg name="config_folder_name" value="move_base_vo" />
-    <arg name="cmd_topic" value="quetzalcoatl/cmd_vel_raw" />
+    <arg name="cmd_topic" value="nav_vel" />
   </include>
-
-  <!-- <node pkg="quetzalcoatl_software" type="steering_filter" name="steering_filter" output="screen">
-    <param name="steering_alpha" value="0.3"/>
-    NB - Disabled filter
+  <!-- twist_mux -->
+  <node pkg="twist_mux" type="twist_mux" name="twist_mux" output="screen">
+    <rosparam command="load" file="$(find quetzalcoatl_software)/config/twist_mux/twist_mux.yaml" />
+    <remap from="cmd_vel_out" to="quetzalcoatl/cmd_vel_raw"/>
+  </node>
+  <!-- cmd_vel filter -->
+  <node pkg="maddrive_teleop" type="steering_filter" name="steering_filter" ns="quetzalcoatl" output="screen">
     <param name="steering_alpha" value="1.0" />
-    <remap from="cmd_vel_raw" to="quetzalcoatl/cmd_vel_raw" />
-    <remap from="cmd_vel" to="quetzalcoatl/cmd_vel" />
-  </node> -->
+    <remap from="cmd_vel_raw" to="cmd_vel_raw" />
+    <remap from="cmd_vel" to="cmd_vel" />
+  </node>
 
   <node if="$(arg debug)" pkg="rqt_plot" type="rqt_plot" name="steering_plot" output="screen" args="/quetzalcoatl/cmd_vel_raw/angular/z /quetzalcoatl/cmd_vel/angular/z" />
 
+  <!-- rviz -->
   <include if="$(arg rviz)" file="$(find quetzalcoatl_software)/launch/view/rviz_start.launch">
     <arg name="rvizconfig" value="$(find quetzalcoatl_software)/config/rviz/full_move_base.rviz" />
   </include>
+
 </launch>

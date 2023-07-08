@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <launch>
+
     <include file="$(find quetzalcoatl_software)/launch/full/full_start_joy_control.launch"/>
     <include file="$(find quetzalcoatl_software)/launch/drivers/tf_transforms.launch"/>
     <!-- <include file="$(find quetzalcoatl_software)/launch/drivers/ublox.launch"/> -->
@@ -17,6 +17,7 @@
         <arg name="rtabmap_viz" value="true"/>
     </include>
 
+    <!-- robot_localization -->
     <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization" clear_params="true" output="screen">
         <rosparam command="load" file="$(find quetzalcoatl_software)/config/ekf/ekf_odom_vo.yaml" />
         <remap from="odometry/filtered" to="/quetzalcoatl/odometry/filtered/local" />
