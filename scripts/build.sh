@@ -14,6 +14,7 @@ catkin build \
     camera_calibration \
     maddrive_urdf_tools \
     maddrive_teleop \
+    maddrive_worlds \
     realsense2_camera \
     realsense2_description \
     image_geometry \
