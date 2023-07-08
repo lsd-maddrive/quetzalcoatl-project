@@ -15,7 +15,7 @@
 
     <!-- simulation with robot -->
     <include file="$(find quetzalcoatl_description)/launch/quetzalcoatl.launch">
-        <arg name="world" value="$(find quetzalcoatl_maps)/worlds/gas.world" />
+        <arg name="world" value="$(find maddrive_worlds)/worlds/gas.world" />
         <arg name="gui" value="$(arg gui)" />
     </include>
 
