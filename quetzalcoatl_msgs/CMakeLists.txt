@@ -1,7 +1,8 @@
 cmake_minimum_required(VERSION 3.5)
 project(quetzalcoatl_msgs)
 
-find_package(catkin REQUIRED COMPONENTS
+find_package(catkin REQUIRED
+  COMPONENTS
   message_generation
   std_msgs
 )
@@ -21,6 +22,5 @@ catkin_package(
 )
 
 include_directories(
-  include
   ${catkin_INCLUDE_DIRS}
 )
