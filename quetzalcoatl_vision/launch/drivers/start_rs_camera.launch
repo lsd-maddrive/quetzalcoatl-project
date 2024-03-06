@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <launch>
   <group ns="rs_camera">
-    <include file="$(find tigra_vision)/launch/drivers/driver_realsense.launch">
+    <include file="$(find quetzalcoatl_vision)/launch/drivers/driver_realsense.launch">
       <arg name="tf_prefix" value="rs_camera" />
       <arg name="align_depth" value="true" />
       <arg name="linear_accel_cov" value="0.01" />
@@ -14,7 +14,7 @@
     </include>
   </group>
 
-  <include file="$(find tigra_software)/launch/drivers/imu_filter.launch">
+  <include file="$(find quetzalcoatl_software)/launch/drivers/imu_filter.launch">
     <arg name="in_topic" value="rs_camera/imu" />
     <arg name="out_topic" value="rs_camera/imu/filtered" />
   </include>

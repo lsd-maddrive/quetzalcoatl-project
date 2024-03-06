@@ -203,7 +203,7 @@ head_stereo_obstacle_layer:
 #     laser_scan:
 #         sensor_frame: hokuyo
 #         data_type: LaserScan
-#         topic: /tigra_description/laser/scan
+#         topic: /quetzalcoatl_description/laser/scan
 #         marking: true
 #         clearing: true
 #         obstacle_range: 10.
